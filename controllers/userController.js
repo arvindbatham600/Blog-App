@@ -1,34 +1,10 @@
-const zod = require("zod");
 const userModel = require("../models/userModel");
-
-// creating user schema for validation using zod
-const zodUserSchema = zod.object({
-  username: zod.string(),
-  email: zod.string().email(),
-  password: zod.string().min(8),
-});
-
-const inputValiation = (username, email, password) => {
-  const validity = zodUserSchema.safeParse({ username, email, password });
-
-  if (validity.success) {
-    return true;
-  } else {
-    return false;
-  }
-};
+const bcrypt = require("bcrypt");
 
 // resistration controller
 const registerController = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const valid = inputValiation(username, email, password);
-    if (!valid) {
-      return res.status(403).send({
-        success: false,
-        message: "inputs are not correct",
-      });
-    }
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res.status(403).send({
@@ -36,8 +12,8 @@ const registerController = async (req, res) => {
         message: "email already registered",
       });
     }
-    // await userModel.create({ username, email, password });
-    const user = new userModel({ username, email, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new userModel({ username, email, password: hashedPassword });
     await user.save();
     return res.status(200).send({
       success: true,
