@@ -30,7 +30,7 @@ const registerController = async (req, res) => {
 };
 
 // login controller
-const loginController =  async (req, res) => {
+const loginController = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     // checking if the email exists or not
@@ -52,23 +52,34 @@ const loginController =  async (req, res) => {
       return res.status(200).send({
         success: true,
         message: "user authenticated",
-        exists
-      })
-   }
- 
+        exists,
+      });
+    }
   } catch (error) {
     return res.status(500).send({
       success: false,
       message: "error in login callback",
-      error
-    })
+      error,
+    });
   }
-
 };
 
 // get all users
-const getAllUser = (req, res) => {
-  res.send("sending response for all users");
+const getAllUser = async (req, res) => {
+  try {
+    const users = await userModel.find({});
+    return res.status(200).send({
+      success: true,
+      message: "got all users data",
+      users
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "error in getAllUser callback",
+      error,
+    });
+  }
 };
 
 module.exports = {
