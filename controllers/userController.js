@@ -1,3 +1,4 @@
+const { trusted } = require("mongoose");
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
@@ -27,13 +28,47 @@ const registerController = async (req, res) => {
     });
   }
 };
+
+// login controller
+const loginController =  async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    // checking if the email exists or not
+    const exists = await userModel.findOne({ email });
+    if (!exists) {
+      return res.status(404).send({
+        success: false,
+        message: "user is not registered",
+      });
+    }
+    // checking the password
+    const passwordCheck = bcrypt.compare(password, exists.password);
+    if (!passwordCheck) {
+      return res.status(404).send({
+        success: false,
+        message: "Invalid credentials",
+      });
+    } else {
+      return res.status(200).send({
+        success: true,
+        message: "user authenticated",
+        exists
+      })
+   }
+ 
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "error in login callback",
+      error
+    })
+  }
+
+};
+
 // get all users
 const getAllUser = (req, res) => {
   res.send("sending response for all users");
-};
-// login controller
-const loginController = (req, res) => {
-  res.send("sending response to login users");
 };
 
 module.exports = {

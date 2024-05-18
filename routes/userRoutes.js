@@ -8,8 +8,8 @@ const inputValiationMiddleware = require("../middlewares/inputValidationMiddlewa
 
 const router = express.Router();
 
-router.get("/all-user", getAllUser);
-router.post("/register", inputValiationMiddleware, registerController);
-router.post("/login", loginController);
 
+router.post("/register", inputValiationMiddleware, registerController);
+router.post("/login", inputValiationMiddleware, loginController);
+router.get("/all-user", getAllUser);
 module.exports = router;
