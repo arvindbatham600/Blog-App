@@ -4,7 +4,7 @@ const {
   registerController,
   loginController,
 } = require("../controllers/userController");
-const inputValiationMiddleware = require("../middlewares/inputValidationMiddleware");
+const inputValiationMiddleware = require("../middlewares/userInputValidation");
 
 const router = express.Router();
 

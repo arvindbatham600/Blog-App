@@ -1,4 +1,3 @@
-const { trusted } = require("mongoose");
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
