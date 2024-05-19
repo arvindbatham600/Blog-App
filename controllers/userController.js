@@ -31,7 +31,7 @@ const registerController = async (req, res) => {
 // login controller
 const loginController = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const {  email, password } = req.body;
     // checking if the email exists or not
     const exists = await userModel.findOne({ email });
     if (!exists) {
@@ -41,7 +41,7 @@ const loginController = async (req, res) => {
       });
     }
     // checking the password
-    const passwordCheck = bcrypt.compare(password, exists.password);
+    const passwordCheck = await bcrypt.compare(password, exists.password);
     if (!passwordCheck) {
       return res.status(404).send({
         success: false,
