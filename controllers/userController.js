@@ -18,6 +18,7 @@ const registerController = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "user regirstered successfully",
+      user,
     });
   } catch (error) {
     res.status(404).send({
@@ -31,7 +32,7 @@ const registerController = async (req, res) => {
 // login controller
 const loginController = async (req, res) => {
   try {
-    const {  email, password } = req.body;
+    const { email, password } = req.body;
     // checking if the email exists or not
     const exists = await userModel.findOne({ email });
     if (!exists) {
@@ -70,8 +71,8 @@ const getAllUser = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "got all users data",
-      users
-    })
+      users,
+    });
   } catch (error) {
     return res.status(500).send({
       success: false,

@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const blogModel = require("../models/blogModel");
 const userModel = require("../models/userModel");
 
@@ -40,8 +41,14 @@ const createBlogController = async (req, res) => {
       });
     }
     const newBlog = new blogModel({ title, description, image, user: userId });
-    console.log("ye create karna hai", newBlog);
-    await newBlog.save();
+    // creating mongoose session
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    await newBlog.save({ session });
+    // pushing this blog to the userdata blog field
+    user.blogs.push(newBlog);
+    await user.save({ session });
+    await session.commitTransaction();
     return res.status(200).send({
       success: true,
       message: "blog successfully created",
@@ -108,7 +115,9 @@ const getSingleBlogController = async (req, res) => {
 const deleteBlogController = async (req, res) => {
   try {
     const { id } = req.params;
-    const blog = await blogModel.findByIdAndDelete(id);
+    const blog = await blogModel.findOneAndDelete(id).populate("user");
+    await blog.user.blogs.pull(blog); // it will remove the blog from the user database
+    await blog.user.save();
     if (!blog) {
       return res.status(404).send({
         success: false,
@@ -128,10 +137,38 @@ const deleteBlogController = async (req, res) => {
   }
 };
 
+// get user blogs
+const getUserBlogController = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const blog = await userModel.findById(userId).populate('blogs');
+    if (!blog) {
+      return res.status(404).send({
+        success: false,
+        messsage : "This user has no blogs"
+      })
+    }
+    const blogs = blog.blogs;
+    return res.status(200).send({
+      success: true,
+      message: "user blogs found",
+      blogs,
+      
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "error in get-user blog controller",
+      error
+    })
+  }
+};
+
 module.exports = {
   getAllBlogController,
   createBlogController,
   updateBlogController,
   getSingleBlogController,
   deleteBlogController,
+  getUserBlogController,
 };

@@ -14,6 +14,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "password is required"],
     },
+    // blogs: { // one way
+    //   type: [mongoose.Schema.Types.ObjectId],
+    //   ref: "Blog",
+    //   default: [],
+    // },
+    blogs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Blog",
+      },
+    ],
   },
   {
     timestamps: true,

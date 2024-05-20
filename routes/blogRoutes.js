@@ -5,9 +5,11 @@ const {
   updateBlogController,
   getSingleBlogController,
   deleteBlogController,
+  getUserBlogController,
 } = require("../controllers/blogController");
 const blogInputValidation = require("../middlewares/blogInputValidation");
 const ownershipCheck = require("../middlewares/ownershipCheck");
+const { getAllUser } = require("../controllers/userController");
 
 // router object
 const router = express.Router();
@@ -25,7 +27,10 @@ router.put("/update-blog/:id", ownershipCheck, updateBlogController);
 router.get("/get-blog/:id", getSingleBlogController);
 
 // delete blog
-router.delete("/delete-blog/:id",ownershipCheck, deleteBlogController);
+router.delete("/delete-blog/:id", ownershipCheck, deleteBlogController);
+
+// user blog route
+router.get("/user-blog",getUserBlogController )
 
 // export
 module.exports = router;
