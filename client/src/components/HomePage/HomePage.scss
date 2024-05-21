@@ -1,0 +1,45 @@
+#main-div-homepage{
+    height: 90vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    
+    .left, .right{
+        width: 50%;
+    }
+    .left{
+        display: flex;
+        justify-content: center;
+        .box{
+            width: 50%;
+            font-weight: bold;
+            .title{
+                font-size: 40px;
+            }
+            .description{
+                font-size: 1rem;
+                padding-top: 10px;
+                padding-bottom: 1rem;
+            }
+            .button{
+                border: none;
+                outline: none;
+                padding: 10px 20px;
+                font-weight: bold;
+                border-radius: 5px;
+                background-color: rgb(54, 88, 182);
+                color: white;
+            }
+        }
+    }
+
+    .right{
+        display: flex;
+        justify-content: center;
+    }
+
+
+}

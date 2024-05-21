@@ -1,0 +1,37 @@
+
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // background-color: blue($color: #2c91d4);
+    height: 10vh;
+    background-color: rgb(104, 91, 177);
+    padding: 0 50px 0 50px;
+    .link{
+        outline: none;
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+    }
+    .left{
+        .logo{
+            height: 50px;
+            width: 50px;
+            border-radius: 50px;
+        }
+    }
+    .right{
+        display: flex;
+        gap: 30px;
+
+        button{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 15px;
+            color: white;
+
+        }
+    }
+}
