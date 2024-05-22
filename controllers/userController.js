@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 // resistration controller
 const registerController = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { firstName, lastName, username, email, password } = req.body;
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res.status(403).send({
@@ -13,7 +13,7 @@ const registerController = async (req, res) => {
       });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new userModel({ username, email, password: hashedPassword });
+    const user = new userModel({ firstName, lastName, username, email, password: hashedPassword });
     await user.save();
     return res.status(200).send({
       success: true,

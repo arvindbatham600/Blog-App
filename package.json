@@ -12,6 +12,7 @@
   "author": "Arvind Batham",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",

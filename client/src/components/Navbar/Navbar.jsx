@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
-  console.log(isLogin);
+  // console.log(isLogin);
 
   return (
     <>
