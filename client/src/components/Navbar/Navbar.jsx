@@ -1,11 +1,21 @@
 import "./Navbar.scss";
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/features/authSlice";
 
 const Navbar = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   // console.log(isLogin);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/")
+
+  }
 
   return (
     <>
@@ -45,7 +55,7 @@ const Navbar = () => {
             </>
           )}
           {isLogin && (
-            <button>
+            <button onClick={logoutHandler}>
               <Link className="link" to="/">
                 Logout
               </Link>

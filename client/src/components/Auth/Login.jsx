@@ -1,25 +1,60 @@
+import axios from "axios";
 import "./auth.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {login} from "../../redux/features/authSlice"
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [inputs, setinputs] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    console.log(inputs);
+    setinputs((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const passwordType = showPassword ? "text" : "password";
-  
+
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("http://localhost:3000/api/v1/user/login", {
+        email: inputs.email,
+        password: inputs.password,
+      });
+      if (data.success) {
+        dispatch(login())
+        navigate("/all-blogs")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div id="login">
         <div className="box">
           <div className="heading">Login</div>
-          <form>
+          <form onSubmit={submitHandler}>
             <div className="input-box">
               <span>Email</span>
               <input
-                type="text"
+                onChange={handleChange}
+                type="email"
                 id="email"
                 name="email"
                 placeholder="Email"
@@ -29,9 +64,11 @@ const Login = () => {
             <div className="input-box">
               <span>Password</span>
               <input
+                onChange={handleChange}
                 type={passwordType}
                 name="password"
                 id="password"
+                minLength={8}
                 required
                 placeholder="Password"
               />
