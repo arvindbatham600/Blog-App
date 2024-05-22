@@ -1,6 +1,15 @@
 import "./auth.scss";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const passwordType = showPassword ? "text" : "password";
+  
+  const showPasswordHandler = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <>
       <div id="login">
@@ -20,7 +29,7 @@ const Login = () => {
             <div className="input-box">
               <span>Password</span>
               <input
-                type="password"
+                type={passwordType}
                 name="password"
                 id="password"
                 required
@@ -37,6 +46,8 @@ const Login = () => {
                 <div>
                   {" "}
                   <input
+                    checked={showPassword}
+                    onChange={showPasswordHandler}
                     style={{
                       marginLeft: "10px",
                       height: "12px",
@@ -50,6 +61,12 @@ const Login = () => {
             </div>
             <div className="submit-button">
               <button type="submit">Login</button>
+            </div>
+            <div
+              onClick={() => navigate("/register")}
+              className="bottom-heading"
+            >
+              Not Signed UP? Please Sign Up
             </div>
           </form>
         </div>
