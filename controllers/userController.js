@@ -7,8 +7,9 @@ const registerController = async (req, res) => {
     const { firstName, lastName, username, email, password } = req.body;
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(403).send({
+      return res.status(200).send({
         success: false,
+        registered: true,
         message: "email already registered",
       });
     }
@@ -17,13 +18,15 @@ const registerController = async (req, res) => {
     await user.save();
     return res.status(200).send({
       success: true,
+      registered: false,
       message: "user regirstered successfully",
       user,
     });
   } catch (error) {
     res.status(404).send({
       success: false,
-      message: "error in registration callback",
+      registered : false,
+      message: "Interal Server Error",
       error,
     });
   }

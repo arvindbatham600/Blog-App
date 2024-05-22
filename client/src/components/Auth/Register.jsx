@@ -1,12 +1,26 @@
 import { useState } from "react";
 import "./auth.scss";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const passwordType = showPassword ? "text" : "password";
-  const [data, setData] = useState({
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(false);
+  const [registered, setRegistered] = useState(false);
+  const [success, setSuccess] = useState(false)
+
+
+  const message  =  {
+    success: "User registered successfully",
+    failure: "Internal server error",
+    email : "email already registered"
+    
+  }
+  
+  const [inputs, setinputs] = useState({
     firstName: "",
     lastName: "",
     username: "",
@@ -14,21 +28,56 @@ const Register = () => {
     password: "",
   });
 
+
   const handleChange = (e) => {
-    console.log(e.target.value);
-    setData((prevData) => ({
-      ...prevData,
+    setinputs((previnputs) => ({
+      ...previnputs,
       [e.target.name]: e.target.value,
-      
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // console.log(data)
+    try {
+      const {data} = await axios.post("http://localhost:3000/api/v1/user/register", {
+        firstName: inputs.firstName,
+        lastName: inputs.lastName,
+        username: inputs.username,
+        email: inputs.email,
+        password: inputs.password,
+      });
 
- }
+      if (data.success && !data.registered) {
+        setSuccess(true)
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false)
+          setSuccess(false);
+          navigate("/login");
+        }, 2000)
+      }
+      if (!data.success && data.registered) {
+        console.log(" I am in the second condition")
+        setRegistered(true);
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false)
+          setRegistered(false);
+        }, 2000)
+      }
+      if (!data.success && !data.registered) {
+        setError(true);
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false);
+          setError(false);
+        },2000)
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
@@ -45,7 +94,7 @@ const Register = () => {
               <span>First Name</span>
               <input
                 onChange={handleChange}
-                value={data.firstName}
+                value={inputs.firstName}
                 type="text"
                 name="firstName"
                 id="firstName"
@@ -57,7 +106,7 @@ const Register = () => {
               <span>Last Name</span>
               <input
                 onChange={handleChange}
-                value={data.lastName}
+                value={inputs.lastName}
                 type="text"
                 name="lastName"
                 id="lastName"
@@ -69,7 +118,7 @@ const Register = () => {
               <span>username</span>
               <input
                 onChange={handleChange}
-                value={data.username}
+                value={inputs.username}
                 type="text"
                 name="username"
                 id="username"
@@ -81,7 +130,7 @@ const Register = () => {
               <span>Email</span>
               <input
                 onChange={handleChange}
-                value={data.email}
+                value={inputs.email}
                 type="email"
                 name="email"
                 id="email"
@@ -93,10 +142,11 @@ const Register = () => {
               <span>Password</span>
               <input
                 onChange={handleChange}
-                value={data.password}
+                value={inputs.password}
                 type={passwordType}
                 name="password"
                 id="password"
+                minLength={8}
                 required
                 placeholder="Password"
               />
@@ -133,6 +183,22 @@ const Register = () => {
               Already Signed Up? Please Login
             </div>
           </form>
+        </div>
+        <div
+          style={{
+            visibility: open ? "visible" : "hidden",
+          }}
+          className="alertBox"
+        >
+          {
+            success && <span>{ message.success }</span>  
+          }
+          {
+            error && <span>{message.failure}</span>
+          }
+          {
+            registered && <span>{message.email}</span>
+          }
         </div>
       </div>
     </>
