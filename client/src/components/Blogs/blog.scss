@@ -1,0 +1,10 @@
+.all-blogs, .my-blogs{
+ 
+    padding: 2rem 1rem;
+    .all-blog-box{
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+}
