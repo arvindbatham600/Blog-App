@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import BlogCard from "../BlogCard/BlogCard"
 import "./blog.scss";
 import axios from "axios";
-import blogData from "../constant/BlogData";
 
 
 const MyBlog = () => {
@@ -19,7 +18,6 @@ const MyBlog = () => {
       userId : userId
     })
     if (data.success) {
-      alert("yes this is success")
       setData(data.blogs)
     }
   }
@@ -35,7 +33,8 @@ const MyBlog = () => {
                                 key={blog.id}
                                 title={blog.title}
                                 description={blog.description}
-                                image={blog.image}
+                                // image={blog.image}
+                                visible = {true}
                               />
                             );
                         })

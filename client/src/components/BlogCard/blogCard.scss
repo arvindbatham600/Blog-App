@@ -1,11 +1,14 @@
 .blog-card {
   height: 300px;
+  overflow: hidden;
   width: 300px;
   background-color: #685bb1;
   // will remove this margin;
   margin-top: 10px;
   border-radius: 10px;
-  padding: 10px;
+  padding: 10px 10px 40px 10px;
+    position: relative;
+
 
   .box {
     color: white;
@@ -30,6 +33,18 @@
     .description {
       font-size: 15px;
       font-weight: normal;
+    }
+
+    .edit-delete{
+      position: absolute;
+      display: flex;
+      gap: 15px;
+      right: 5px;
+      bottom: 10px;
+
+      .icon{
+        cursor: pointer;
+      }
     }
   }
 }

@@ -30,7 +30,7 @@ const AllBlog = () => {
                   key={index}
                   title={blog.title}
                   description={blog.description}
-                  image={blog.image}
+                  // image={blog.image}
                 />
               );
             })}
