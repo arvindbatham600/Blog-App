@@ -141,6 +141,7 @@ const deleteBlogController = async (req, res) => {
 const getUserBlogController = async (req, res) => {
   try {
     const { userId } = req.body;
+    console.log("this is userId which i am getting", userId);
     const blog = await userModel.findById(userId).populate('blogs');
     if (!blog) {
       return res.status(404).send({

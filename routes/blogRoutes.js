@@ -30,7 +30,7 @@ router.get("/get-blog/:id", getSingleBlogController);
 router.delete("/delete-blog/:id", ownershipCheck, deleteBlogController);
 
 // user blog route
-router.get("/user-blog",getUserBlogController )
+router.post("/user-blog",getUserBlogController )
 
 // export
 module.exports = router;

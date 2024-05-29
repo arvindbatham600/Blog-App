@@ -13,6 +13,7 @@ const Navbar = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
+    localStorage.clear();
     navigate("/")
 
   }
@@ -55,11 +56,14 @@ const Navbar = () => {
             </>
           )}
           {isLogin && (
-            <button onClick={logoutHandler}>
-              <Link className="link" to="/">
-                Logout
-              </Link>
-            </button>
+            <>
+              <button>{JSON.parse(localStorage.getItem("username"))}</button>
+              <button onClick={logoutHandler}>
+                <Link className="link" to="/">
+                  Logout
+                </Link>
+              </button>
+            </>
           )}
         </div>
       </div>

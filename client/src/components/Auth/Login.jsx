@@ -1,11 +1,12 @@
 import axios from "axios";
 import "./auth.scss";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {login} from "../../redux/features/authSlice"
 
 const Login = () => {
+  const [userId, setUserId] = ("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +37,10 @@ const Login = () => {
         password: inputs.password,
       });
       if (data.success) {
+        console.log("this is login data", data.exists._id)
         dispatch(login())
+        localStorage.setItem("userId", JSON.stringify(data.exists._id));
+        localStorage.setItem("username", JSON.stringify(data.exists.username));
         navigate("/all-blogs")
       }
     } catch (error) {
