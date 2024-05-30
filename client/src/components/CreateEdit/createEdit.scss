@@ -1,0 +1,56 @@
+#main-container-box{
+    height: 400px;
+    width: 400px;
+    background-color: rgba(144, 137, 137, 0.381);
+    color: black;
+
+    .body-container{
+        padding: 10px;
+        .heading{
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            
+        }
+        form{
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .form-box{
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                label{
+                    font-size: 20px;
+                }
+                input[type = text]{
+                    height: 40px;
+                    font-size: 15px;
+                    padding: 0 10px;
+                }
+                textarea{
+                    font-size: 15px;
+                    padding: 5px 10px;
+                }
+            }
+            .update-btn{
+                display: flex;
+                justify-content: center;
+
+                button{
+                    padding: 10px 20px;
+                    font-size: 15px;
+                    background-color: #3658B6;
+                    color: white;
+                    font-weight: bold;
+                    outline: none;
+                    border: none;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
