@@ -7,6 +7,7 @@ import AllBlog from "./components/Blogs/AllBlog";
 import MyBlog from "./components/Blogs/MyBlog";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 
+
 const App = () => {
   return (
     <>
