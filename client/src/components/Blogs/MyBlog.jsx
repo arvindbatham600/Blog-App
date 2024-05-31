@@ -17,8 +17,10 @@ const MyBlog = () => {
     const { data } = await axios.post(`http://localhost:3000/api/v1/blog/user-blog`, {
       userId : userId
     })
+    
     if (data.success) {
       setData(data.blogs)
+      console.log("blog data bkl", data.blogs)
     }
   }
 
@@ -29,8 +31,9 @@ const MyBlog = () => {
                     {
                         Data?.map((blog) => {
                             return (
-                              <BlogCard
-                                key={blog.id}
+                              <BlogCard 
+                                blogId = {blog._id}
+                                key={blog._id}
                                 title={blog.title}
                                 description={blog.description}
                                 // image={blog.image}

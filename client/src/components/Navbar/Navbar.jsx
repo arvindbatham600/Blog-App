@@ -30,6 +30,11 @@ const Navbar = () => {
           {isLogin && (
             <>
               <button>
+                <Link className="link" to="/create-blog">
+                  Create Blog
+                </Link>
+              </button>
+              <button>
                 <Link className="link" to="/all-blogs">
                   All Blogs
                 </Link>

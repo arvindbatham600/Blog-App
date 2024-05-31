@@ -2,6 +2,7 @@ const blogModel = require("../models/blogModel");
 const ownershipCheck = async (req, res, next) => {
   try {
     const { userId } = req.body;
+    console.log("pradyumn", userId)
     const { id: blogId } = req.params;
     const blog = await blogModel.findById(blogId);
     if (!blog) {
@@ -11,6 +12,7 @@ const ownershipCheck = async (req, res, next) => {
       });
     }
     if (blog.user.toString() !== userId) {
+
       return res.status(404).send({
         success: false,
         message: "unauthorized user",

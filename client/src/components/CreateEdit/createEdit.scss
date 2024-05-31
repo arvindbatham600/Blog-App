@@ -1,11 +1,13 @@
 #main-container-box{
-    height: 400px;
-    width: 400px;
-    background-color: rgba(144, 137, 137, 0.381);
-    color: black;
+    height: 430px;
+    width: 450px;
+    background-color: #464E68;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 2px;
 
     .body-container{
-        padding: 10px;
+        padding: 30px;
         .heading{
             text-align: center;
             font-size: 25px;
