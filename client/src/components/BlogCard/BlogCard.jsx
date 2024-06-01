@@ -29,22 +29,25 @@ const BlogCard = (props) => {
 
   const DeleteBlog = async () => {
     try {
-      alert("this id delete blog function alert")
+      // alert("this id delete blog function alert")
      const userId = JSON.parse(localStorage.getItem("userId"));
-    console.log("sending userId", userId)
+      console.log(" delte sending userId", userId)
+      console.log("delete sending blogId", blogId)
     const { data } = await axios.delete(
       `http://localhost:3000/api/v1/blog/delete-blog/${blogId}`,
       {
-        userId: userId,
+        headers: {
+          userId: userId,
+        },
       }
     );
-    console.log("this si data", data)
-
+    // console.log("this si data", data)
+ 
     if (data.success) {
       notify();
       setTimeout(() => {
-        navigate("/my-blogs");
-      });
+        navigate("/all-blogs");
+      },2500);
     }
     } catch (error) {
       console.log("this is error in catch", error)
@@ -53,7 +56,7 @@ const BlogCard = (props) => {
 
   useEffect(() => {
     if (deleteConfirm) {
-      alert("Now the delete confirm value is true");
+      // alert("Now the delete confirm value is true");
       DeleteBlog();
       setDeleteConfirm(false); // Reset the value to prevent the loop
     }
@@ -83,6 +86,7 @@ const BlogCard = (props) => {
 
           {visible && (
             <div className="edit-delete">
+              {/* // update icon */}
               <IconButton aria-label="edit" onClick={handleOpen}>
                 <EditIcon
                   sx={{
@@ -101,6 +105,7 @@ const BlogCard = (props) => {
           )}
         </div>
       </div>
+      <Toaster />
 
       {/* this modal is for updating the blog */}
       <Modal
@@ -114,7 +119,7 @@ const BlogCard = (props) => {
           alignItems: "center",
         }}
       >
-        <Edit />
+        <Edit blogId = {blogId} handleClose = {handleClose} open = {setOpen} />
       </Modal>
 
       {/* this model is for confirming that user wants to delete the blog */}

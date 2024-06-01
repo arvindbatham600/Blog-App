@@ -65,11 +65,15 @@ const createBlogController = async (req, res) => {
 
 // update blog
 const updateBlogController = async (req, res) => {
+  console.log("request body", req.body);
   try {
     const { id } = req.params;
     const blog = await blogModel.findByIdAndUpdate(
       id,
-      { ...req.body },
+      {
+        title: req.body.title,
+        description: req.body.description,
+      },
       { new: true }
     );
     return res.status(200).send({
@@ -115,23 +119,28 @@ const getSingleBlogController = async (req, res) => {
 const deleteBlogController = async (req, res) => {
   try {
     const { id } = req.params;
-    const blog = await blogModel.findOneAndDelete(id).populate("user");
-    await blog.user.blogs.pull(blog); // it will remove the blog from the user database
-    await blog.user.save();
+    const blog = await blogModel.findById(id).populate("user");
+
     if (!blog) {
       return res.status(404).send({
         success: false,
-        message: "blog not found",
+        message: "Blog not found",
       });
     }
+
+    // Remove the blog from the user's blogs array
+    await blogModel.findByIdAndDelete(id); // This actually deletes the blog from the blogModel collection
+    blog.user.blogs.pull(blog._id); // Use the blog's ID to remove it from the user's blogs array
+    await blog.user.save();
+
     return res.status(200).send({
       success: true,
-      message: "blog deleted successfully",
+      message: "Blog deleted successfully",
     });
   } catch (error) {
     return res.status(500).send({
       success: false,
-      message: "call error in delete blog controller",
+      message: "Call error in delete blog controller",
       error,
     });
   }
@@ -141,26 +150,25 @@ const deleteBlogController = async (req, res) => {
 const getUserBlogController = async (req, res) => {
   try {
     const { userId } = req.body;
-    const blog = await userModel.findById(userId).populate('blogs');
+    const blog = await userModel.findById(userId).populate("blogs");
     if (!blog) {
       return res.status(404).send({
         success: false,
-        messsage : "This user has no blogs"
-      })
+        messsage: "This user has no blogs",
+      });
     }
     const blogs = blog.blogs;
     return res.status(200).send({
       success: true,
       message: "user blogs found",
       blogs,
-      
-    })
+    });
   } catch (error) {
     return res.status(500).send({
       success: false,
       message: "error in get-user blog controller",
-      error
-    })
+      error,
+    });
   }
 };
 
