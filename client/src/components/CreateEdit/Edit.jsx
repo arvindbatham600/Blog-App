@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Edit = ({ blogId, handleClose, setOpen }) => {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // useNavigate hook
   const notify = () => toast.success("Blog updated successfully!");
   const [updatedInputs, setUpdatedInputs] = useState({
     title: "",
