@@ -2,6 +2,7 @@ import BlogCard from "../BlogCard/BlogCard";
 import "./blog.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import api from "../../utils/api";
 
 
 
@@ -14,7 +15,7 @@ const AllBlog = () => {
   const [Data, setData] = useState([]);
 
   const fetchData = async () => {
-    const { data } = await axios.get("http://localhost:3000/api/v1/blog/all-blog/");
+    const { data } = await api.get("/api/v1/blog/all-blog/");
     if (data.success) {
       setData(data.blogs);
     }

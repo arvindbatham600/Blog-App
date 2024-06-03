@@ -1,5 +1,13 @@
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const secretKey = process.env.JWT_SECRET;
+console.log("secretKey", secretKey)
+
 
 // resistration controller
 const registerController = async (req, res) => {
@@ -38,26 +46,42 @@ const loginController = async (req, res) => {
     const { email, password } = req.body;
     // checking if the email exists or not
     const exists = await userModel.findOne({ email });
+    console.log("exist", exists)
     if (!exists) {
       return res.status(404).send({
         success: false,
         message: "user is not registered",
       });
     }
+
     // checking the password
+    console.log("checking password")
     const passwordCheck = await bcrypt.compare(password, exists.password);
-    if (!passwordCheck) {
-      return res.status(404).send({
-        success: false,
-        message: "Invalid credentials",
-      });
-    } else {
-      return res.status(200).send({
-        success: true,
-        message: "user authenticated",
-        exists,
-      });
+    console.log("password checked")
+     if (!passwordCheck) {
+       return res.status(404).send({
+         success: false,
+         message: "Invalid credentials",
+       });
     }
+
+    console.log("befor generating token");
+     // Generating JWT token
+     const token = jwt.sign(
+       { userId: exists._id, email: exists.email },
+       secretKey,
+       { expiresIn: "1h" } // Token expiration time
+    );
+    
+    console.log("after token");
+
+     return res.status(200).send({
+       success: true,
+       message: "User authenticated",
+       username: exists.username,
+       id: exists._id,
+       token, // Return the token to the client
+     });
   } catch (error) {
     return res.status(500).send({
       success: false,

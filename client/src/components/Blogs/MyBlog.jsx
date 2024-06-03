@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BlogCard from "../BlogCard/BlogCard"
 import "./blog.scss";
 import axios from "axios";
+import api from "../../utils/api";
 
 
 const MyBlog = () => {
@@ -14,7 +15,7 @@ const MyBlog = () => {
 
   const fetchData = async () => {
     const userId = JSON.parse(localStorage.getItem('userId'));
-    const { data } = await axios.post(`http://localhost:3000/api/v1/blog/user-blog`, {
+    const { data } = await api.post(`/api/v1/blog/user-blog`, {
       userId : userId
     })
     

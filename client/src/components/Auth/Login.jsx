@@ -1,9 +1,9 @@
 import axios from "axios";
 import "./auth.scss";
 import { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {login} from "../../redux/features/authSlice"
+import { login } from "../../redux/features/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,15 +30,21 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:3000/api/v1/user/login", {
-        email: inputs.email,
-        password: inputs.password,
-      });
+      const { data } = await axios.post(
+        "http://localhost:3000/api/v1/user/login",
+        {
+          email: inputs.email,
+          password: inputs.password,
+        }
+      );
       if (data.success) {
-        dispatch(login())
-        localStorage.setItem("userId", JSON.stringify(data.exists._id));
-        localStorage.setItem("username", JSON.stringify(data.exists.username));
-        navigate("/all-blogs")
+        console.log("this is success : ", data);
+        dispatch(login());
+        localStorage.setItem("login", "true")
+        localStorage.setItem("userId", JSON.stringify(data.id));
+        localStorage.setItem("username", JSON.stringify(data.username));
+        localStorage.setItem("token", JSON.stringify(data.token) )
+        navigate("/all-blogs");
       }
     } catch (error) {
       console.log(error);

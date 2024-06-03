@@ -6,8 +6,7 @@ import Register from "./components/Auth/Register";
 import AllBlog from "./components/Blogs/AllBlog";
 import MyBlog from "./components/Blogs/MyBlog";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
-import Create from "./components/CreateEdit/Create"
-
+import Create from "./components/CreateEdit/Create";
 
 const App = () => {
   return (
@@ -18,7 +17,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/create-blog" element = {<Create />} />
+          <Route path="/create-blog" element={<Create />} />
           <Route path="/my-blogs" element={<MyBlog />} />
           <Route path="/all-blogs" element={<AllBlog />} />
         </Route>
