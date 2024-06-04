@@ -4,10 +4,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Edit from "../CreateEdit/Edit";
-import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import api from "../../utils/api";
+import blogImage from "../../assets/blogImage.png"
 
 const style = {
   position: "absolute",
@@ -79,7 +79,7 @@ const BlogCard = (props) => {
       <div className="blog-card">
         <div className="box">
           <div className="image">
-            <img src="https://shorturl.at/DnSCo" alt="blog-img" />
+            <img src={blogImage} alt="blog-img" />
           </div>
           <div className="title">{title}</div>
           <div className="description">{description}.</div>
