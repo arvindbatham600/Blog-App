@@ -21,7 +21,6 @@ const MyBlog = () => {
     
     if (data.success) {
       setData(data.blogs)
-      console.log("blog data bkl", data.blogs)
     }
   }
 

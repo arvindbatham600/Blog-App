@@ -1,6 +1,6 @@
 import axios from "axios";
 import "./auth.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/authSlice";
@@ -13,6 +13,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    localStorage.clear();
+  })
 
   const handleChange = (e) => {
     setinputs((prevData) => ({
@@ -38,7 +42,6 @@ const Login = () => {
         }
       );
       if (data.success) {
-        console.log("this is success : ", data);
         dispatch(login());
         localStorage.setItem("login", "true")
         localStorage.setItem("userId", JSON.stringify(data.id));

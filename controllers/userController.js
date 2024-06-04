@@ -70,7 +70,7 @@ const loginController = async (req, res) => {
      const token = jwt.sign(
        { userId: exists._id, email: exists.email },
        secretKey,
-       { expiresIn: "1h" } // Token expiration time
+      //  { expiresIn: "1h" } // Token expiration time
     );
     
     console.log("after token");

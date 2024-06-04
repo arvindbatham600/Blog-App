@@ -12,7 +12,6 @@ const Create = () => {
     title: "",
     description: "",
   });
-  console.log(inputs);
 
   const submitHandler = async (e) => {
     e.preventDefault();

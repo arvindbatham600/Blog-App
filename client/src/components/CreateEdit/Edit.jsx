@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./createEdit.scss";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../../utils/api";
 
 const Edit = ({ blogId, handleClose, setOpen }) => {
     const navigate = useNavigate(); // useNavigate hook
@@ -11,6 +12,25 @@ const Edit = ({ blogId, handleClose, setOpen }) => {
     title: "",
     description: "",
   });
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+
+      try {
+        const { data } = await api.get(`/api/v1/blog/get-blog/${blogId}`);
+        if (data.success) {
+          setUpdatedInputs((prevData) => ({
+            ...prevData,
+            title: data.blog.title,
+            description: data.blog.description
+          }))
+        }
+      } catch (error) {
+        console.log("error in fetching blog data", error)
+      }
+    }
+    fetchBlogData();
+  },[blogId])
 
   const handleChange = (e) => {
     setUpdatedInputs((prevData) => ({
@@ -22,9 +42,8 @@ const Edit = ({ blogId, handleClose, setOpen }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const userId = JSON.parse(localStorage.getItem("userId"));
-    console.log("sending edit userId", userId);
-    const { data } = await axios.put(
-      `http://localhost:3000/api/v1/blog/update-blog/${blogId}`,
+    const { data } = await api.put(
+      `/api/v1/blog/update-blog/${blogId}`,
       {
         title: updatedInputs.title,
         description: updatedInputs.description,
@@ -38,7 +57,7 @@ const Edit = ({ blogId, handleClose, setOpen }) => {
     if (data.success) {
         notify();
         setTimeout(() => {
-            navigate("/all-blogs")
+            navigate("/my-blogs")
         }, 2500);
         handleClose(() => {
             setOpen(false)

@@ -7,6 +7,7 @@ import Edit from "../CreateEdit/Edit";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../../utils/api";
 
 const style = {
   position: "absolute",
@@ -31,10 +32,9 @@ const BlogCard = (props) => {
     try {
       // alert("this id delete blog function alert")
      const userId = JSON.parse(localStorage.getItem("userId"));
-      console.log(" delte sending userId", userId)
-      console.log("delete sending blogId", blogId)
-    const { data } = await axios.delete(
-      `http://localhost:3000/api/v1/blog/delete-blog/${blogId}`,
+      
+    const { data } = await api.delete(
+      `/api/v1/blog/delete-blog/${blogId}`,
       {
         headers: {
           userId: userId,
