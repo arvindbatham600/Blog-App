@@ -5,8 +5,19 @@ const connectDatabase = require("./config/db");
 const userRouter = require("./routes/userRoutes");
 const blogRouter = require("./routes/blogRoutes")
 
-var corsOptions = {
-  origin: "https://blog-app-o9z3.onrender.com/",
+const allowedOrigins = [
+  "http://localhost:5173", // For local development
+  "https://blog-app-o9z3.onrender.com", // Replace with your frontend's deployed domain
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
