@@ -18,6 +18,9 @@ app.use(cors());
 app.use(express.json());
 
 // routes
+app.get("/", (req, res) => {
+  res.send("this is response")
+})
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/blog", blogRouter)
 
