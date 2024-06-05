@@ -1,5 +1,5 @@
 import "./Navbar.scss";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo1.jpeg";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
