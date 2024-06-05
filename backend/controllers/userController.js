@@ -6,7 +6,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
-console.log("secretKey", secretKey)
 
 
 // resistration controller
@@ -46,7 +45,6 @@ const loginController = async (req, res) => {
     const { email, password } = req.body;
     // checking if the email exists or not
     const exists = await userModel.findOne({ email });
-    console.log("exist", exists)
     if (!exists) {
       return res.status(404).send({
         success: false,
@@ -55,9 +53,7 @@ const loginController = async (req, res) => {
     }
 
     // checking the password
-    console.log("checking password")
     const passwordCheck = await bcrypt.compare(password, exists.password);
-    console.log("password checked")
      if (!passwordCheck) {
        return res.status(404).send({
          success: false,
@@ -65,7 +61,6 @@ const loginController = async (req, res) => {
        });
     }
 
-    console.log("befor generating token");
      // Generating JWT token
      const token = jwt.sign(
        { userId: exists._id, email: exists.email },
@@ -73,7 +68,6 @@ const loginController = async (req, res) => {
       //  { expiresIn: "1h" } // Token expiration time
     );
     
-    console.log("after token");
 
      return res.status(200).send({
        success: true,

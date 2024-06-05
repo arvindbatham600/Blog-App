@@ -4,10 +4,7 @@
   "description": "Blog web app",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm run dev --prefix ./client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "node server.js"
   },
   "author": "Arvind Batham",
   "license": "ISC",

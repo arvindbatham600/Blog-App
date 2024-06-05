@@ -57,7 +57,6 @@ const Register = () => {
         }, 2000)
       }
       if (!data.success && data.registered) {
-        console.log(" I am in the second condition")
         setRegistered(true);
         setOpen(true);
         setTimeout(() => {
