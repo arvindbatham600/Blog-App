@@ -39,13 +39,16 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data} = await axios.post("http://localhost:3000/api/v1/user/register", {
-        firstName: inputs.firstName,
-        lastName: inputs.lastName,
-        username: inputs.username,
-        email: inputs.email,
-        password: inputs.password,
-      });
+      const { data } = await axios.post(
+        "https://blog-app-o9z3.onrender.com/api/v1/user/register",
+        {
+          firstName: inputs.firstName,
+          lastName: inputs.lastName,
+          username: inputs.username,
+          email: inputs.email,
+          password: inputs.password,
+        }
+      );
 
       if (data.success && !data.registered) {
         setSuccess(true)

@@ -11,5 +11,5 @@ const router = express.Router();
 
 router.post("/register", inputValiationMiddleware, registerController);
 router.post("/login", inputValiationMiddleware, loginController);
-router.get("/all-user", getAllUser);
+// router.get("/all-user", getAllUser);
 module.exports = router;

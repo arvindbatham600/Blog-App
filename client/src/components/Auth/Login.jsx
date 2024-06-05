@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
+        "https://blog-app-o9z3.onrender.com/api/v1/user/login",
         {
           email: inputs.email,
           password: inputs.password,
