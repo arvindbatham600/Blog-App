@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/authSlice";
-// import api from "../../utils/api";
-import axios from "axios";
+import api from "../../utils/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,8 +34,8 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "https://blog-app-o9z3.onrender.com/api/v1/user/login",
+      const { data } = await api.post(
+        "/api/v1/user/login",
         {
           email: inputs.email,
           password: inputs.password,

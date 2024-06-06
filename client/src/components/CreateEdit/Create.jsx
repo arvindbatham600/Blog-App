@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./createEdit.scss";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-// import api from "../../utils/api";
+import api from "../../utils/api";
 
 const Create = () => {
   const notify = () => toast.success("Blog successfully created!");
@@ -17,8 +17,8 @@ const Create = () => {
     e.preventDefault();
     // hitting the creat-blog api
     try {
-      const { data } = await axios.post(
-        "https://blog-app-o9z3.onrender.com/api/v1/blog/create-blog/",
+      const { data } = await api.post(
+        "/api/v1/blog/create-blog/",
         {
           title: inputs.title,
           description: inputs.description,
