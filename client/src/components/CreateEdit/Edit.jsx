@@ -3,7 +3,7 @@ import "./createEdit.scss";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils/api";
+// import api from "../../utils/api";
 
 const Edit = ({ blogId, handleClose, setOpen }) => {
     const navigate = useNavigate(); // useNavigate hook
@@ -17,7 +17,7 @@ const Edit = ({ blogId, handleClose, setOpen }) => {
     const fetchBlogData = async () => {
 
       try {
-        const { data } = await api.get(`/api/v1/blog/get-blog/${blogId}`);
+        const { data } = await axios.get(`/api/v1/blog/get-blog/${blogId}`);
         if (data.success) {
           setUpdatedInputs((prevData) => ({
             ...prevData,

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./auth.scss";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils/api";
+// import api from "../../utils/api";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post(
+      const { data } = await axios.post(
         "https://blog-app-o9z3.onrender.com/api/v1/user/register",
         {
           firstName: inputs.firstName,

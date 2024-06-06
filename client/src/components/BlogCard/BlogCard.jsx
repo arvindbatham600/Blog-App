@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import Edit from "../CreateEdit/Edit";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils/api";
+// import api from "../../utils/api";
 import blogImage from "../../assets/blogImage.png"
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -33,8 +34,8 @@ const BlogCard = (props) => {
       // alert("this id delete blog function alert")
      const userId = JSON.parse(localStorage.getItem("userId"));
       
-    const { data } = await api.delete(
-      `/api/v1/blog/delete-blog/${blogId}`,
+    const { data } = await axios.delete(
+      `https://blog-app-o9z3.onrender.com/api/v1/blog/delete-blog/${blogId}`,
       {
         headers: {
           userId: userId,
