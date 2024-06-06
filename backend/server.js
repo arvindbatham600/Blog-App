@@ -7,7 +7,7 @@ const blogRouter = require("./routes/blogRoutes")
 
 const allowedOrigins = [
   "http://localhost:5173", // For local development
-  "https://blog-app-o9z3.onrender.com", // Replace with your frontend's deployed domain
+  "https://master--arvind-dailyblog.netlify.app/", // Replace with your frontend's deployed domain
 ];
 
 const corsOptions = {
