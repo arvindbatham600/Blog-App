@@ -5,21 +5,25 @@ const connectDatabase = require("./config/db");
 const userRouter = require("./routes/userRoutes");
 const blogRouter = require("./routes/blogRoutes");
 
-const allowedOrigins = [
-  "http://localhost:5173", // For local development
-  "https://arvind-dailyblog.netlify.app/", // Replace with your frontend's deployed domain
-];
+// const allowedOrigins = [
+//   "https://arvind-dailyblog.netlify.app/", // Replace with your frontend's deployed domain
+//   "http://localhost:5173", // For local development
+// ];
 
-const corsOptions = {
+var whitelist = [
+  "http://localhost:5173/",
+  "https://arvind-dailyblog.netlify.app/",
+];
+var corsOptions = {
   origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
+ 
 
 // env config
 dotenv.config();
