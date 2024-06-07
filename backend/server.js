@@ -3,27 +3,23 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDatabase = require("./config/db");
 const userRouter = require("./routes/userRoutes");
-const blogRouter = require("./routes/blogRoutes");
+const blogRouter = require("./routes/blogRoutes")
 
-// const allowedOrigins = [
-//   "https://arvind-dailyblog.netlify.app/", // Replace with your frontend's deployed domain
-//   "http://localhost:5173", // For local development
-// ];
-
-var whitelist = [
-  "http://localhost:5173/",
-  "https://arvind-dailyblog.netlify.app/",
+const allowedOrigins = [
+  "http://localhost:5173", // For local development
+  "https://arvind-dailyblog.netlify.app", // Replace with your frontend's deployed domain
 ];
-var corsOptions = {
+
+const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
- 
 
 // env config
 dotenv.config();
@@ -39,10 +35,10 @@ app.use(express.json());
 
 // routes
 app.get("/", (req, res) => {
-  res.send("this is response");
-});
+  res.send("this is response")
+})
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/blog", blogRouter);
+app.use("/api/v1/blog", blogRouter)
 
 // listen
 app.listen(process.env.PORT, () => {
