@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/authSlice";
 import api from "../../utils/api";
+import { ClipLoader } from "react-spinners";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [inputs, setinputs] = useState({
     email: "",
     password: "",
@@ -32,6 +34,7 @@ const Login = () => {
   };
 
   const submitHandler = async (e) => {
+      setLoading(true)
     e.preventDefault();
     try {
       const { data } = await api.post(
@@ -42,6 +45,7 @@ const Login = () => {
         }
       );
       if (data.success) {
+        setLoading(false);
         dispatch(login());
         localStorage.setItem("login", "true")
         localStorage.setItem("userId", JSON.stringify(data.id));
@@ -107,7 +111,13 @@ const Login = () => {
               </div>
             </div>
             <div className="submit-button">
-              <button type="submit">Login</button>
+              {
+                loading ? (
+                  <ClipLoader />
+                ) : (
+                    <button type="submit">Login</button>
+                )
+              }
             </div>
             <div
               onClick={() => navigate("/register")}
