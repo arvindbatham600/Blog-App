@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./auth.scss";
 import { useNavigate } from "react-router-dom";
 import api from "../../utils/api";
+import { ClipLoader } from "react-spinners";
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -10,7 +12,8 @@ const Register = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [registered, setRegistered] = useState(false);
-  const [success, setSuccess] = useState(false)
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const message  =  {
@@ -37,6 +40,7 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const { data } = await api.post(
@@ -51,6 +55,7 @@ const Register = () => {
       );
 
       if (data.success && !data.registered) {
+        setLoading(false);
         setSuccess(true)
         setOpen(true);
         setTimeout(() => {
@@ -178,7 +183,11 @@ const Register = () => {
             </div>
 
             <div className="submit-button">
-              <button type="submit">Sign Up</button>
+              {loading ? (
+                <ClipLoader />
+              ) : (
+                <button type="submit">Sign Up</button>
+              )}
             </div>
 
             <div onClick={() => navigate("/login")} className="bottom-heading">
@@ -192,15 +201,9 @@ const Register = () => {
           }}
           className="alertBox"
         >
-          {
-            success && <span>{ message.success }</span>  
-          }
-          {
-            error && <span>{message.failure}</span>
-          }
-          {
-            registered && <span>{message.email}</span>
-          }
+          {success && <span>{message.success}</span>}
+          {error && <span>{message.failure}</span>}
+          {registered && <span>{message.email}</span>}
         </div>
       </div>
     </>
