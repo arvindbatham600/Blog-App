@@ -1,7 +1,9 @@
 import "./HomePage.scss";
 import laptopImage from "../../assets/laptopImage.png"
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const Navigate = useNavigate();
     return (
       <>
         <div id="main-div-homepage">
@@ -15,7 +17,7 @@ const HomePage = () => {
                 is designed to be user-friendly and inclusive, allowing writers
                 of all backgrounds to express themselves freely.
               </div>
-              <button className="button">Get Started</button>
+              <button onClick={() => Navigate("/register")} className="button">Get Started</button>
             </div>
           </div>
           <div className="right">

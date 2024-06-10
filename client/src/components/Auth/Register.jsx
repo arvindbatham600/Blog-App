@@ -3,25 +3,20 @@ import "./auth.scss";
 import { useNavigate } from "react-router-dom";
 import api from "../../utils/api";
 import { ClipLoader } from "react-spinners";
+import toast, { Toaster } from "react-hot-toast";
+
 
 
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const passwordType = showPassword ? "text" : "password";
-  const [open, setOpen] = useState(false);
-  const [error, setError] = useState(false);
-  const [registered, setRegistered] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+    const registerSuccessfully = () =>
+      toast.success("User Registered Successfully");
+    const alreadyExist = () => toast.error("Email already Exists");
+    const serverError = () => toast.error("Internal server error");
 
-
-  const message  =  {
-    success: "User registered successfully",
-    failure: "Internal server error",
-    email : "email already registered"
-    
-  }
   
   const [inputs, setinputs] = useState({
     firstName: "",
@@ -56,29 +51,18 @@ const Register = () => {
 
       if (data.success && !data.registered) {
         setLoading(false);
-        setSuccess(true)
-        setOpen(true);
+        registerSuccessfully();
         setTimeout(() => {
-          setOpen(false)
-          setSuccess(false);
           navigate("/login");
-        }, 2000)
+        }, 3000)
       }
       if (!data.success && data.registered) {
-        setRegistered(true);
-        setOpen(true);
-        setTimeout(() => {
-          setOpen(false)
-          setRegistered(false);
-        }, 2000)
+        setLoading(false);
+        alreadyExist();
       }
       if (!data.success && !data.registered) {
-        setError(true);
-        setOpen(true);
-        setTimeout(() => {
-          setOpen(false);
-          setError(false);
-        },2000)
+        setLoading(false);
+        serverError();
       }
       
     } catch (error) {
@@ -195,17 +179,8 @@ const Register = () => {
             </div>
           </form>
         </div>
-        <div
-          style={{
-            visibility: open ? "visible" : "hidden",
-          }}
-          className="alertBox"
-        >
-          {success && <span>{message.success}</span>}
-          {error && <span>{message.failure}</span>}
-          {registered && <span>{message.email}</span>}
-        </div>
       </div>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </>
   );
 };

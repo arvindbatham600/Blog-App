@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/authSlice";
 import api from "../../utils/api";
 import { ClipLoader } from "react-spinners";
+import toast, { Toaster } from "react-hot-toast";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +17,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const loginSuccessFull = () => toast.success(" User logged in successfully!");
+  const notRegistered = () => toast.error("User not registered");
+  const invalidCredential = () => toast.error("invalid credentials")
+
 
   useEffect(() => {
     localStorage.clear();
@@ -44,17 +50,44 @@ const Login = () => {
           password: inputs.password,
         }
       );
+      //  if (data.status === "401") {
+      //    setLoading(false);
+      //    invalidCredential();
+      //  }
+      //  if (data.status === "404") {
+      //    setLoading(false);
+      //    notRegistered();
+      //  }
       if (data.success) {
         setLoading(false);
-        dispatch(login());
-        localStorage.setItem("login", "true")
-        localStorage.setItem("userId", JSON.stringify(data.id));
-        localStorage.setItem("username", JSON.stringify(data.username));
-        localStorage.setItem("token", JSON.stringify(data.token) )
-        navigate("/all-blogs");
+        loginSuccessFull();
+        setTimeout(() => {
+          dispatch(login());
+          localStorage.setItem("login", "true");
+          localStorage.setItem("userId", JSON.stringify(data.id));
+          localStorage.setItem("username", JSON.stringify(data.username));
+          localStorage.setItem("token", JSON.stringify(data.token));
+          navigate("/all-blogs");
+        }, 4000)
+        
       }
+     
     } catch (error) {
+      console.log("this is axios error");
       console.log(error);
+      setLoading(false);
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 401) {
+          invalidCredential();
+        } else if (status === 404) {
+          notRegistered();
+        } else {
+          console.log("Unhandled error:", error.response);
+        }
+      } else {
+        console.log("Network error or server not responding");
+      }
     }
   };
 
@@ -111,13 +144,7 @@ const Login = () => {
               </div>
             </div>
             <div className="submit-button">
-              {
-                loading ? (
-                  <ClipLoader />
-                ) : (
-                    <button type="submit">Login</button>
-                )
-              }
+              {loading ? <ClipLoader /> : <button type="submit">Login</button>}
             </div>
             <div
               onClick={() => navigate("/register")}
@@ -128,6 +155,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </>
   );
 };

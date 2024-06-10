@@ -47,6 +47,7 @@ const loginController = async (req, res) => {
     const exists = await userModel.findOne({ email });
     if (!exists) {
       return res.status(404).send({
+        status : 404,
         success: false,
         message: "user is not registered",
       });
@@ -55,7 +56,8 @@ const loginController = async (req, res) => {
     // checking the password
     const passwordCheck = await bcrypt.compare(password, exists.password);
      if (!passwordCheck) {
-       return res.status(404).send({
+       return res.status(401).send({
+         status : 401,
          success: false,
          message: "Invalid credentials",
        });

@@ -57,7 +57,7 @@ const Edit = ({ blogId, handleClose, setOpen }) => {
     if (data.success) {
         notify();
         setTimeout(() => {
-            navigate("/my-blogs")
+            navigate("/all-blogs")
         }, 2500);
         handleClose(() => {
             setOpen(false)
