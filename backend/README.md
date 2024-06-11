@@ -1,53 +1,63 @@
-
 # DailyBlog Backend
-
-
-
 
 ![Logo](https://arvind-dailyblog.netlify.app/assets/logo1-CCbFLb4G.jpeg)
 
+This is the backend server for the DailyBlog application, providing RESTful APIs for managing blog posts and user authentication.
 
 ## Tech Stack
 
- - Node
- - Express
+- **Node.js:** A JavaScript runtime built on Chrome's V8 JavaScript engine.
+- **Express:** A minimal and flexible Node.js web application framework.
 
+## Libraries Used for Authentication and Validation
 
-### Libraries used  for authentication and validation 
- - zod
- - bcrypt
- - jsonwebtoken
- - bcrypt
+- **Zod:** A TypeScript-first schema declaration and validation library.
+- **bcrypt:** A library to help you hash passwords.
+- **jsonwebtoken:** A library to work with JSON Web Tokens (JWT).
+- **dotenv:** A module to load environment variables from a `.env` file.
 
+## Features
 
-## Run Locally
+- User Authentication (Register, Login)
+- Secure password hashing with bcrypt
+- JWT-based authentication for protected routes
+- CRUD operations for blog posts
+- Input validation using Zod
 
-Clone the project
+## Getting Started
 
-```bash
-  git clone git@github.com:arvindbatham600/Blog-App.git
-```
+To get a local copy up and running, follow these simple steps.
 
-Go to the project directory
+### Prerequisites
 
-```bash
-  cd backend
-```
+Ensure you have npm and Node.js installed on your machine.
 
-Install dependencies
+### Installation
 
-```bash
-  npm install
-```
+1. **Clone the repository:**
 
-Start the server
+    ```bash
+    git clone git@github.com:arvindbatham600/Blog-App.git
+    ```
 
-```bash
-  node server.js
-```
+2. **Navigate to the project directory:**
 
+    ```bash
+    cd backend
+    ```
+
+3. **Install the dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+4. **Start the server:**
+
+    ```bash
+    node server.js
+    ```
 
 ## Author
 
-- [@arvindbatham600](https://www.github.com/arvindbatham600)
-
+- GitHub: [@arvindbatham600](https://www.github.com/arvindbatham600)
