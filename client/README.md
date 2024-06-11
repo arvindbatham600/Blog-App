@@ -1,7 +1,10 @@
 
 # DailyBlog Frontend
+![Logo](https://arvind-dailyblog.netlify.app/assets/logo1-CCbFLb4G.jpeg)
 
 DailyBlog is a blog Application where user can Create the blogs and manage them accordingly like delete and update.
+
+[Demo](https://arvind-dailyblog.netlify.app/)
 
 
 ## Tech-Stack
@@ -43,4 +46,9 @@ Start the server
 ```bash
   npm run dev
 ```
+
+
+## Author
+
+- [@arvindbatham600](https://www.github.com/arvindbatham600)
 
