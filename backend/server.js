@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDatabase = require("./config/db");
 const userRouter = require("./routes/userRoutes");
-const blogRouter = require("./routes/blogRoutes")
+const blogRouter = require("./routes/blogRoutes");
 
 const allowedOrigins = [
   "http://localhost:5173", // For local development
@@ -35,10 +35,10 @@ app.use(express.json());
 
 // routes
 app.get("/", (req, res) => {
-  res.send("this is response")
-})
+  res.send("this is response");
+});
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/blog", blogRouter)
+app.use("/api/v1/blog", blogRouter);
 
 // listen
 app.listen(process.env.PORT, () => {

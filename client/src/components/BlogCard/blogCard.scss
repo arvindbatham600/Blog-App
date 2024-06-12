@@ -7,8 +7,7 @@
   margin-top: 10px;
   border-radius: 10px;
   padding: 10px 10px 40px 10px;
-    position: relative;
-
+  position: relative;
 
   .box {
     color: white;
@@ -27,22 +26,27 @@
       font-size: 25px;
       font-weight: bold;
       padding: 10px 0;
-      
     }
 
     .description {
       font-size: 15px;
       font-weight: normal;
+      display: -webkit-box; /* Create a flexible box */
+      -webkit-box-orient: vertical; /* Orient the box vertically */
+      -webkit-line-clamp: 4; /* Number of lines to display */
+      overflow: hidden; /* Hide overflowing content */
+      text-overflow: ellipsis; /* Add ellipsis at the end */
+      max-height: calc(1.2em * 4);
     }
 
-    .edit-delete{
+    .edit-delete {
       position: absolute;
       display: flex;
       gap: 15px;
       right: 5px;
       bottom: 10px;
 
-      .icon{
+      .icon {
         cursor: pointer;
       }
     }
