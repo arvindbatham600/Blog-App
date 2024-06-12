@@ -1,4 +1,4 @@
-# DailyBlog
+# DailyBlog [Live Demo](https://arvind-dailyblog.netlify.app/)
 
 ![Logo](https://arvind-dailyblog.netlify.app/assets/logo1-CCbFLb4G.jpeg)
 
@@ -19,24 +19,29 @@ DailyBlog is a full-stack blog application built with the MERN stack (MongoDB, E
   - [Reporting Issues](#reporting-issues)
 - [Author](#author)
 
-
 ## Tech Stack
 
 ### Frontend
+
 - **React:** A JavaScript library for building user interfaces.
 - **Redux:** A predictable state container for JavaScript apps.
 - **Sass:** A CSS preprocessor for easier and more efficient styling.
 - **Material UI:** A popular React UI framework for creating responsive and visually appealing components.
 
 ### Backend
+
 - **Node.js:** A JavaScript runtime built on Chrome's V8 JavaScript engine.
 - **Express:** A minimal and flexible Node.js web application framework.
 
 ### Libraries Used for Authentication and Validation
+
 - **Zod:** A TypeScript-first schema declaration and validation library.
 - **bcrypt:** A library to help you hash passwords.
 - **jsonwebtoken:** A library to work with JSON Web Tokens (JWT).
 - **dotenv:** A module to load environment variables from a `.env` file.
+
+### Database
+- Mongodb
 
 ## Installation
 
@@ -49,7 +54,6 @@ git clone git@github.com:arvindbatham600/Blog-App.git
 ```
 
 ## Frontend Setup
-
 
 Go to the client directory
 
@@ -69,9 +73,7 @@ Start the server
   npm run dev
 ```
 
-
 ## Backend Setup
-
 
 Go to the client directory
 
@@ -89,8 +91,7 @@ Start the server
 
 ```bash
   node server.js
-  ```
-
+```
 
 ## Environment Variables
 
@@ -102,12 +103,9 @@ To run this project, you will need to add the following environment variables to
 
 `JWT_SECRET`
 
-
 ## Uncomment the localhost server
 
 in api.js file uncomment the localhost server and comment the frontend url for running locally
-
-
 
 # Learnings
 
@@ -120,7 +118,6 @@ From this project, I've gained valuable experience in:
 - API development with Node.js and Express
 - Input validation using Zod
 - Secure password hashing with bcrypt
-
 
 # Contributing
 
@@ -137,8 +134,6 @@ Contributions are what make the open source community such an amazing place to l
 ## Reporting Issues
 
 If you encounter any issues or have suggestions for improvements, feel free to create an issue in the Issues section of the repository.
-
-
 
 ## Author
 

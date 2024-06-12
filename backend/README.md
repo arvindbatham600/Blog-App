@@ -16,6 +16,10 @@ This is the backend server for the DailyBlog application, providing RESTful APIs
 - **jsonwebtoken:** A library to work with JSON Web Tokens (JWT).
 - **dotenv:** A module to load environment variables from a `.env` file.
 
+### Database
+- Mongodb
+
+
 ## Features
 
 - User Authentication (Register, Login)
